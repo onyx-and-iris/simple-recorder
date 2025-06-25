@@ -34,7 +34,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: packaged_addon
+          name: pyz_build
           path: ./bin/simple-recorder.pyz
 
   upload_release:
@@ -46,7 +46,7 @@ jobs:
       - name: Download releases files
         uses: actions/download-artifact@v4.1.7
         with:
-          name: packaged_addon
+          name: pyz_build
 
       - name: Display structure of downloaded files
         run: tree
@@ -54,6 +54,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./bin/simple-recorder.pyz
+          files: simple-recorder.pyz
           fail_on_unmatched_files: true
           prerelease: ${{ contains(github.ref, '-') }}
