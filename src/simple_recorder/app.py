@@ -37,14 +37,14 @@ class Start(Command):
     @override
     async def run(self):
         if not self.filename:
-            raise ClypiException(error("Recording name cannot be empty."))
+            raise ClypiException("Recording name cannot be empty.")
 
         with obsws.ReqClient(
             host=self.host, port=self.port, password=self.password
         ) as client:
             resp = client.get_record_status()
             if resp.output_active:
-                raise ClypiException(error("Recording is already active."))
+                raise ClypiException("Recording is already active.")
 
             filename = f"{self.filename} {self.get_timestamp()}"
             client.set_profile_parameter(
@@ -70,7 +70,7 @@ class Stop(Command):
         ) as client:
             resp = client.get_record_status()
             if not resp.output_active:
-                raise ClypiException(error("Recording is not active."))
+                raise ClypiException("Recording is not active.")
 
             client.stop_record()
             print("Recording stopped successfully.")
