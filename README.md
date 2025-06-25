@@ -12,6 +12,7 @@ Run it as a CLI or a GUI.
 ## Requirements
 
 -   Python 3.11 or greater
+-   [OBS Studio 28+][obs-studio]
 
 ## Installation
 
@@ -25,6 +26,22 @@ uv tool install simple-recorder
 
 ```console
 pipx install simple-recorder
+```
+
+## Configuration
+
+Pass --host, --port and --password as flags on the root command:
+
+```console
+simple-recorder --host=localhost --port=4455 --password=<websocket password> --help
+```
+
+Or load them from your environment:
+
+```env
+OBS_HOST=localhost
+OBS_PORT=4455
+OBS_PASSWORD=<websocket password>
 ```
 
 ## Use
@@ -62,3 +79,5 @@ simple-recorder stop
 ```
 
 If no filename is passed to start then you will be prompted for one. A default_name will be used if none is supplied to the prompt.
+
+[obs-studio]: https://obsproject.com/
