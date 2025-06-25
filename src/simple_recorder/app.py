@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime
 
+import clypi
 import FreeSimpleGUI as fsg
 import obsws_python as obsws
 from clypi import ClypiConfig, ClypiException, Command, Positional, arg, configure
@@ -12,6 +13,9 @@ config = ClypiConfig(
     nice_errors=(ClypiException,),
 )
 configure(config)
+
+highlight = clypi.Styler(fg="green")
+error = clypi.Styler(fg="red", bold=True)
 
 
 class Start(Command):
@@ -33,21 +37,23 @@ class Start(Command):
     @override
     async def run(self):
         if not self.filename:
-            raise ClypiException("Recording name cannot be empty.")
+            raise ClypiException(error("Recording name cannot be empty."))
 
         with obsws.ReqClient(
             host=self.host, port=self.port, password=self.password
         ) as client:
             resp = client.get_record_status()
             if resp.output_active:
-                raise ClypiException("Recording is already active.")
+                raise ClypiException(error("Recording is already active."))
 
+            filename = f"{self.filename} {self.get_timestamp()}"
             client.set_profile_parameter(
                 "Output",
                 "FilenameFormatting",
-                f"{self.filename} {self.get_timestamp()}",
+                filename,
             )
             client.start_record()
+            print(f"Recording started with filename: {highlight(filename)}")
 
 
 class Stop(Command):
@@ -64,9 +70,10 @@ class Stop(Command):
         ) as client:
             resp = client.get_record_status()
             if not resp.output_active:
-                raise ClypiException("Recording is not active.")
+                raise ClypiException(error("Recording is not active."))
 
             client.stop_record()
+            print("Recording stopped successfully.")
 
 
 def theme_parser(value: str) -> str:
