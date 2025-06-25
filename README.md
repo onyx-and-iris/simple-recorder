@@ -58,6 +58,16 @@ Without passing a subcommand (start/stop) a GUI will be launched, otherwise a CL
 
 Just enter the filename and click *Start Recording*.
 
+#### Themes
+
+Load the GUI with different themes:
+
+```console
+simple-recorder --theme="Light Purple"
+```
+
+Available themes: Light Purple, Neutral Blue, Reds, Sandy Beach, Kayak, Light Blue 2, Dark Teal1
+
 ### CLI
 
 ```shell
