@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: packaged_addon
-          path: bin/simple-recorder.pyz
+          path: ./bin/simple-recorder.pyz
 
   upload_release:
     runs-on: ubuntu-latest
@@ -54,6 +54,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: bin/simple-recorder.pyz
+          files: ./bin/simple-recorder.pyz
           fail_on_unmatched_files: true
           prerelease: ${{ contains(github.ref, '-') }}
