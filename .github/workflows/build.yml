@@ -1,4 +1,4 @@
-name: Build Addon
+name: Build PYZ
 
 on:
   push:
