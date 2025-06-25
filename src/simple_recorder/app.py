@@ -78,7 +78,15 @@ class Stop(Command):
 
 def theme_parser(value: str) -> str:
     """Parse the theme argument."""
-    themes = ["Light Purple", "Neutral Blue", "Reds", "Sandy Beach"]
+    themes = [
+        "Light Purple",
+        "Neutral Blue",
+        "Reds",
+        "Sandy Beach",
+        "Kayak",
+        "Light Blue 2",
+        "Dark Teal1",
+    ]
     if value not in themes:
         raise ClypiException(
             f"Invalid theme: {value}. Available themes: {', '.join(themes)}"
@@ -148,7 +156,7 @@ class SimpleRecorder(Command):
 
 
 def run():
-    """Run the CLI application."""
+    """Run the application."""
     SimpleRecorder.parse().start()
 
 
