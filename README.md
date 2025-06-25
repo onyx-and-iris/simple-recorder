@@ -28,6 +28,10 @@ uv tool install simple-recorder
 pipx install simple-recorder
 ```
 
+*with pyz*
+
+An executable pyz has been included in [Release](https://github.com/onyx-and-iris/simple-recorder/releases) which you can run in Windows. Follow the steps in this [Setting up Windows for Zipapps](https://jhermann.github.io/blog/python/deployment/2020/02/29/python_zippapps_on_windows.html#Setting-Up-Windows-10-for-Zipapps) guide.
+
 ## Configuration
 
 Pass --host, --port and --password as flags on the root command:
