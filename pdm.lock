@@ -2,13 +2,27 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default"]
+groups = ["default", "build"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:7d4367f16062b5a2d661a207b7b33518aaea59371e239b8cf90a5b5b583e1abc"
+content_hash = "sha256:292c5ea319597e3539895c1ac50004c884c5d46edd5f7b195ede79156558feab"
 
 [[metadata.targets]]
 requires_python = ">=3.11"
+
+[[package]]
+name = "click"
+version = "8.2.1"
+requires_python = ">=3.10"
+summary = "Composable command line interface toolkit"
+groups = ["build"]
+dependencies = [
+    "colorama; platform_system == \"Windows\"",
+]
+files = [
+    {file = "click-8.2.1-py3-none-any.whl", hash = "sha256:61a3265b914e850b85317d0b3109c7f8cd35a670f963866005d6ef1d5175a12b"},
+    {file = "click-8.2.1.tar.gz", hash = "sha256:27c491cc05d968d271d5a1db13e3b5a184636d9d930f148c50b038f0d0646202"},
+]
 
 [[package]]
 name = "clypi"
@@ -23,6 +37,18 @@ dependencies = [
 files = [
     {file = "clypi-1.8.1-py3-none-any.whl", hash = "sha256:7218807e31f698fe5585c63d397645e481ca846d1491a4f1fde017c7892dbe3c"},
     {file = "clypi-1.8.1.tar.gz", hash = "sha256:9efa0a5a0e3668dd390e0d90321587dcb8eea12e28facd2ac437383f0de3dc76"},
+]
+
+[[package]]
+name = "colorama"
+version = "0.4.6"
+requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
+summary = "Cross-platform colored terminal text."
+groups = ["build"]
+marker = "platform_system == \"Windows\""
+files = [
+    {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
+    {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
 
 [[package]]
@@ -51,6 +77,17 @@ files = [
 ]
 
 [[package]]
+name = "pip"
+version = "25.1.1"
+requires_python = ">=3.9"
+summary = "The PyPA recommended tool for installing Python packages."
+groups = ["build"]
+files = [
+    {file = "pip-25.1.1-py3-none-any.whl", hash = "sha256:2913a38a2abf4ea6b64ab507bd9e967f3b53dc1ede74b01b0931e1ce548751af"},
+    {file = "pip-25.1.1.tar.gz", hash = "sha256:3de45d411d308d5054c2168185d8da7f9a2cd753dbac8acbfa88a8909ecd9077"},
+]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
@@ -62,6 +99,34 @@ dependencies = [
 files = [
     {file = "python-dateutil-2.9.0.post0.tar.gz", hash = "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"},
     {file = "python_dateutil-2.9.0.post0-py2.py3-none-any.whl", hash = "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"},
+]
+
+[[package]]
+name = "setuptools"
+version = "80.9.0"
+requires_python = ">=3.9"
+summary = "Easily download, build, install, upgrade, and uninstall Python packages"
+groups = ["build"]
+files = [
+    {file = "setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922"},
+    {file = "setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"},
+]
+
+[[package]]
+name = "shiv"
+version = "1.0.8"
+requires_python = ">=3.6"
+summary = "A command line utility for building fully self contained Python zipapps."
+groups = ["build"]
+dependencies = [
+    "click!=7.0,>=6.7",
+    "importlib-resources; python_version < \"3.7\"",
+    "pip>=9.0.3",
+    "setuptools",
+]
+files = [
+    {file = "shiv-1.0.8-py2.py3-none-any.whl", hash = "sha256:a60e4b05a2d2f8b820d567b1d89ee59af731759771c32c282d03c4ceae6aba24"},
+    {file = "shiv-1.0.8.tar.gz", hash = "sha256:2a68d69e98ce81cb5b8fdafbfc1e27efa93e6d89ca14bfae33482e4176f561d6"},
 ]
 
 [[package]]
