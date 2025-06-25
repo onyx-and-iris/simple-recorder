@@ -24,4 +24,4 @@ build-backend = "pdm.backend"
 distribution = true
 
 [tool.pdm.scripts]
-compile = "uvx shiv -c simple-recorder -o bin/simple-recorder-bin ."
+compile = "uvx shiv -c simple-recorder -o bin/simple-recorder.pyz ."
