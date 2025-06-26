@@ -51,6 +51,7 @@ class SimpleRecorder(Command):
         default=False,
         env="DEBUG",
         help="Enable debug logging",
+        hidden=True,
     )
 
     @override
