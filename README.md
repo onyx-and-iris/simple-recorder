@@ -78,17 +78,17 @@ Available themes: Light Purple, Neutral Blue, Reds, Sandy Beach, Kayak, Light Bl
 ```shell
 Usage: simple-recorder [OPTIONS] COMMAND
 
-┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ start  Start recording                                              ┃
-┃ stop   Stop recording                                               ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ start  Start recording                                     ┃
+┃ stop   Stop recording                                      ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ --host <HOST>          OBS WebSocket host                           ┃
-┃ --port <PORT>          OBS WebSocket port                           ┃
-┃ --password <PASSWORD>  OBS WebSocket password                       ┃
-┃ --theme <THEME>        OBS WebSocket theme                          ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ --host <HOST>          OBS WebSocket host                  ┃
+┃ --port <PORT>          OBS WebSocket port                  ┃
+┃ --password <PASSWORD>  OBS WebSocket password              ┃
+┃ --theme <THEME>        GUI theme                           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
 For example:
