@@ -42,7 +42,7 @@ class SimpleRecorder(Command):
         default=None, env="OBS_PASSWORD", help="OBS WebSocket password"
     )
     theme: str = arg(
-        default="Reds", parser=theme_parser, env="OBS_THEME", help="OBS WebSocket theme"
+        default="Reds", parser=theme_parser, env="OBS_THEME", help="GUI theme"
     )
 
     @override
