@@ -46,13 +46,18 @@ Or load them from your environment:
 OBS_HOST=localhost
 OBS_PORT=4455
 OBS_PASSWORD=<websocket password>
+OBS_THEME=Reds
 ```
 
 ## Use
 
-Without passing a subcommand (start/stop) a GUI will be launched, otherwise a CLI will be launched.
-
 ### GUI
+
+To launch the GUI run the root command without any subcommands:
+
+```console
+simple-recorder
+```
 
 ![simple-recorder](./img/simple-recorder.png)
 
@@ -60,7 +65,7 @@ Just enter the filename and click *Start Recording*.
 
 #### Themes
 
-Load the GUI with different themes:
+Passing flags is fine, however, for example to set the theme:
 
 ```console
 simple-recorder --theme="Light Purple"
@@ -73,18 +78,20 @@ Available themes: Light Purple, Neutral Blue, Reds, Sandy Beach, Kayak, Light Bl
 ```shell
 Usage: simple-recorder [OPTIONS] COMMAND
 
-┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ start  Start recording                                                       ┃
-┃ stop   Stop recording                                                        ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ start  Start recording                                              ┃
+┃ stop   Stop recording                                               ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ --host <HOST>                                                                ┃
-┃ --port <PORT>                                                                ┃
-┃ --password <PASSWORD>                                                        ┃
-┃ --theme <THEME>                                                              ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ --host <HOST>          OBS WebSocket host                           ┃
+┃ --port <PORT>          OBS WebSocket port                           ┃
+┃ --password <PASSWORD>  OBS WebSocket password                       ┃
+┃ --theme <THEME>        OBS WebSocket theme                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
+
+For example:
 
 ```console
 simple-recorder start "File Name"
@@ -92,6 +99,7 @@ simple-recorder start "File Name"
 simple-recorder stop
 ```
 
-If no filename is passed to start then you will be prompted for one. A default_name will be used if none is supplied to the prompt.
+-   If no filename is passed to start then you will be prompted for one. 
+    -   A default_name will be used if none is supplied to the prompt.
 
 [obs-studio]: https://obsproject.com/
