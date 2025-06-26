@@ -1,6 +1,6 @@
 [project]
 name = "simple-recorder"
-version = "0.1.3"
+version = "0.1.4"
 description = "A simple OBS recorder"
 authors = [{ name = "onyx-and-iris", email = "code@onyxandiris.online" }]
 dependencies = [
