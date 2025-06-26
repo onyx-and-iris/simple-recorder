@@ -1,3 +1,3 @@
-from .app import run
+from .cli import run
 
 __all__ = ["run"]
