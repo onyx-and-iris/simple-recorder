@@ -1,8 +1,8 @@
 import logging
 
 import FreeSimpleGUI as fsg
-from clypi import ClypiException
 
+from .errors import SimpleRecorderError
 from .start import Start
 from .stop import Stop
 
@@ -31,11 +31,12 @@ class SimpleRecorderWindow(fsg.Window):
     async def run(self):
         while True:
             event, values = self.read()
+            self.logger.debug(f"Event: {event}, Values: {values}")
             if event == fsg.WIN_CLOSED:
                 break
 
-            match event.split(" || "):
-                case ["Start Recording", "RETURN" | None] | ["-FILENAME-", "RETURN"]:
+            match e := event.split(" || "):
+                case ["Start Recording"] | ["Start Recording" | "-FILENAME-", "RETURN"]:
                     try:
                         await Start(
                             filename=values["-FILENAME-"],
@@ -46,12 +47,12 @@ class SimpleRecorderWindow(fsg.Window):
                         self["-OUTPUT-"].update(
                             "Recording started successfully", text_color="green"
                         )
-                    except ClypiException as e:
+                    except SimpleRecorderError as e:
                         self["-OUTPUT-"].update(
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
-                case ["Stop Recording", "RETURN" | None]:
+                case ["Stop Recording"] | ["Stop Recording", "RETURN"]:
                     try:
                         await Stop(
                             host=self.host, port=self.port, password=self.password
@@ -59,12 +60,12 @@ class SimpleRecorderWindow(fsg.Window):
                         self["-OUTPUT-"].update(
                             "Recording stopped successfully", text_color="green"
                         )
-                    except ClypiException as e:
+                    except SimpleRecorderError as e:
                         self["-OUTPUT-"].update(
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
                 case _:
-                    self.logger.warning(f"Unhandled event: {event}")
+                    self.logger.warning(f"Unhandled event: {e}")
 
         self.close()

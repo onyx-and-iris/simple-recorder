@@ -47,10 +47,18 @@ class SimpleRecorder(Command):
         env="OBS_THEME",
         help=f"GUI theme ({', '.join(themes)})",
     )
+    debug: bool = arg(
+        default=False,
+        env="DEBUG",
+        help="Enable debug logging",
+    )
 
     @override
     async def run(self):
         """Run the Simple Recorder GUI."""
+        if self.debug:
+            logging.basicConfig(level=logging.DEBUG)
+
         window = SimpleRecorderWindow(self.host, self.port, self.password, self.theme)
         await window.run()
 
