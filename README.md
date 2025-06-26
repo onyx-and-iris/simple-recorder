@@ -65,33 +65,32 @@ Just enter the filename and click *Start Recording*.
 
 #### Themes
 
-Passing flags is fine, however, for example to set the theme:
+However, passing flags is fine, for example to set the theme:
 
 ```console
 simple-recorder --theme="Light Purple"
 ```
-
-Available themes: Light Purple, Neutral Blue, Reds, Sandy Beach, Kayak, Light Blue 2, Dark Teal1
 
 ### CLI
 
 ```shell
 Usage: simple-recorder [OPTIONS] COMMAND
 
-┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ start  Start recording                                     ┃
-┃ stop   Stop recording                                      ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ start  Start recording                                                              ┃
+┃ stop   Stop recording                                                               ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ --host <HOST>          OBS WebSocket host                  ┃
-┃ --port <PORT>          OBS WebSocket port                  ┃
-┃ --password <PASSWORD>  OBS WebSocket password              ┃
-┃ --theme <THEME>        GUI theme                           ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ --host <HOST>          OBS WebSocket host                                           ┃
+┃ --port <PORT>          OBS WebSocket port                                           ┃
+┃ --password <PASSWORD>  OBS WebSocket password                                       ┃
+┃ --theme <THEME>        GUI theme (Light Purple, Neutral Blue, Reds, Sandy Beach,    ┃
+┃                        Kayak, Light Blue 2)                                         ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
-For example:
+To launch the CLI pass any subcommand (start/stop etc...), for example:
 
 ```console
 simple-recorder start "File Name"

@@ -15,18 +15,18 @@ config = ClypiConfig(
 )
 configure(config)
 
+themes = [
+    "Light Purple",
+    "Neutral Blue",
+    "Reds",
+    "Sandy Beach",
+    "Kayak",
+    "Light Blue 2",
+]
+
 
 def theme_parser(value: str) -> str:
     """Parse the theme argument."""
-    themes = [
-        "Light Purple",
-        "Neutral Blue",
-        "Reds",
-        "Sandy Beach",
-        "Kayak",
-        "Light Blue 2",
-        "Dark Teal1",
-    ]
     if value not in themes:
         raise ClypiException(
             f"Invalid theme: {value}. Available themes: {', '.join(themes)}"
@@ -42,7 +42,10 @@ class SimpleRecorder(Command):
         default=None, env="OBS_PASSWORD", help="OBS WebSocket password"
     )
     theme: str = arg(
-        default="Reds", parser=theme_parser, env="OBS_THEME", help="GUI theme"
+        default="Reds",
+        parser=theme_parser,
+        env="OBS_THEME",
+        help=f"GUI theme ({', '.join(themes)})",
     )
 
     @override
