@@ -47,7 +47,7 @@ class SimpleRecorder(Command):
 
     @override
     async def run(self):
-        """Run the Simple Recorder CLI."""
+        """Run the Simple Recorder GUI."""
         window = SimpleRecorderWindow(self.host, self.port, self.password, self.theme)
         await window.run()
 
