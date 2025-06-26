@@ -3,6 +3,7 @@ import logging
 import FreeSimpleGUI as fsg
 from clypi import ClypiException
 
+from .split import Split
 from .start import Start
 from .stop import Stop
 
@@ -20,13 +21,18 @@ class SimpleRecorderWindow(fsg.Window):
         layout = [
             [fsg.Text("Enter recording filename:")],
             [fsg.InputText("", key="-FILENAME-")],
-            [fsg.Button("Start Recording"), fsg.Button("Stop Recording")],
+            [
+                fsg.Button("Start Recording"),
+                fsg.Button("Stop Recording"),
+                fsg.Button("Split Recording"),
+            ],
             [fsg.Text("Status: Not started", key="-OUTPUT-")],
         ]
         super().__init__("Simple Recorder", layout, finalize=True)
         self["-FILENAME-"].bind("<Return>", " || RETURN")
         self["Start Recording"].bind("<Return>", " || RETURN")
         self["Stop Recording"].bind("<Return>", " || RETURN")
+        self["Split Recording"].bind("<Return>", " || RETURN")
 
     async def run(self):
         while True:
@@ -58,6 +64,19 @@ class SimpleRecorderWindow(fsg.Window):
                         ).run()
                         self["-OUTPUT-"].update(
                             "Recording stopped successfully", text_color="green"
+                        )
+                    except ClypiException as e:
+                        self["-OUTPUT-"].update(
+                            f"Error: {e.raw_message}", text_color="red"
+                        )
+
+                case ["Split Recording", "RETURN" | None]:
+                    try:
+                        await Split(
+                            host=self.host, port=self.port, password=self.password
+                        ).run()
+                        self["-OUTPUT-"].update(
+                            "Recording split successfully", text_color="green"
                         )
                     except ClypiException as e:
                         self["-OUTPUT-"].update(

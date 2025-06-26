@@ -5,6 +5,7 @@ from typing_extensions import override
 
 from .errors import SimpleRecorderError
 from .gui import SimpleRecorderWindow
+from .split import Split
 from .start import Start
 from .stop import Stop
 
@@ -35,7 +36,7 @@ def theme_parser(value: str) -> str:
 
 
 class SimpleRecorder(Command):
-    subcommand: Start | Stop | None = None
+    subcommand: Start | Stop | Split | None = None
     host: str = arg(default="localhost", env="OBS_HOST", help="OBS WebSocket host")
     port: int = arg(default=4455, env="OBS_PORT", help="OBS WebSocket port")
     password: str | None = arg(
