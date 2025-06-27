@@ -3,9 +3,7 @@
 [![pdm-managed](https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fpdm-project%2F.github%2Fbadge.json)](https://pdm-project.org)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-A single purpose application for naming file recording in OBS.
-
-Run it as a CLI or a GUI.
+A simple OBS recorder app. Run it as a CLI or a GUI.
 
 ---
 
