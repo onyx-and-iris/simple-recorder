@@ -59,7 +59,7 @@ simple-recorder
 
 ![simple-recorder](./img/simple-recorder.png)
 
-Just enter the filename and click *Start Recording*.
+Just enter the filename and click *Start*.
 
 #### Themes
 
