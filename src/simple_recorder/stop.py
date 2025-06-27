@@ -15,12 +15,15 @@ class Stop(Command):
 
     @override
     async def run(self):
-        with obsws.ReqClient(
-            host=self.host, port=self.port, password=self.password
-        ) as client:
-            resp = client.get_record_status()
-            if not resp.output_active:
-                raise SimpleRecorderError("Recording is not active.")
+        try:
+            with obsws.ReqClient(
+                host=self.host, port=self.port, password=self.password, timeout=3
+            ) as client:
+                resp = client.get_record_status()
+                if not resp.output_active:
+                    raise SimpleRecorderError("Recording is not active.")
 
-            client.stop_record()
-            print(highlight("Recording stopped successfully."))
+                client.stop_record()
+                print(highlight("Recording stopped successfully."))
+        except TimeoutError:
+            raise SimpleRecorderError("Failed to connect to OBS. Is it running?")

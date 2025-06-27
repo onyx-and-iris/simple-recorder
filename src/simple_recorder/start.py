@@ -29,18 +29,21 @@ class Start(Command):
         if not self.filename:
             raise SimpleRecorderError("Recording name cannot be empty.")
 
-        with obsws.ReqClient(
-            host=self.host, port=self.port, password=self.password
-        ) as client:
-            resp = client.get_record_status()
-            if resp.output_active:
-                raise SimpleRecorderError("Recording is already active.")
+        try:
+            with obsws.ReqClient(
+                host=self.host, port=self.port, password=self.password, timeout=3
+            ) as client:
+                resp = client.get_record_status()
+                if resp.output_active:
+                    raise SimpleRecorderError("Recording is already active.")
 
-            filename = f"{self.filename} {self.get_timestamp()}"
-            client.set_profile_parameter(
-                "Output",
-                "FilenameFormatting",
-                filename,
-            )
-            client.start_record()
-            print(f"Recording started with filename: {highlight(filename)}")
+                filename = f"{self.filename} {self.get_timestamp()}"
+                client.set_profile_parameter(
+                    "Output",
+                    "FilenameFormatting",
+                    filename,
+                )
+                client.start_record()
+                print(f"Recording started with filename: {highlight(filename)}")
+        except TimeoutError:
+            raise SimpleRecorderError("Failed to connect to OBS. Is it running?")
