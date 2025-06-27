@@ -63,7 +63,7 @@ Just enter the filename and click *Start*.
 
 #### Themes
 
-However, passing flags is fine, for example to set the theme:
+You can change the colour theme with the --theme option:
 
 ```console
 simple-recorder --theme="Light Purple"
