@@ -75,8 +75,10 @@ simple-recorder --theme="Light Purple"
 Usage: simple-recorder [OPTIONS] COMMAND
 
 ┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ start  Start recording                                                              ┃
-┃ stop   Stop recording                                                               ┃
+┃ start   Start recording                                                             ┃
+┃ stop    Stop recording                                                              ┃
+┃ pause   Pause recording                                                             ┃
+┃ resume  Resume recording                                                            ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 ┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
