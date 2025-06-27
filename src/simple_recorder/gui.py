@@ -4,6 +4,8 @@ import FreeSimpleGUI as fsg
 import obsws_python as obsws
 
 from .errors import SimpleRecorderError
+from .pause import Pause
+from .resume import Resume
 from .start import Start
 from .stop import Stop
 
@@ -29,15 +31,18 @@ class SimpleRecorderWindow(fsg.Window):
 
         recorder_layout = [
             [fsg.Text("Enter recording filename:", key="-PROMPT-")],
-            [fsg.InputText("default_name", key="-FILENAME-", focus=True, size=(45, 1))],
+            [fsg.InputText("default_name", key="-FILENAME-", focus=True)],
             [
-                fsg.Button("Start", key="Start Recording", size=(10, 1)),
-                fsg.Button("Stop", key="Stop Recording", size=(10, 1)),
-                fsg.Button("Pause", key="Pause Recording", size=(10, 1)),
+                fsg.Button("Start", key="Start Recording", size=(20, 1)),
+                fsg.Button("Stop", key="Stop Recording", size=(20, 1)),
             ],
             [
-                fsg.Button("Split", key="Split Recording", size=(10, 1)),
-                fsg.Button("Add Chapter", key="Add Chapter", size=(10, 1)),
+                fsg.Button("Pause", key="Pause Recording", size=(20, 1)),
+                fsg.Button("Resume", key="Resume Recording", size=(20, 1)),
+            ],
+            [
+                fsg.Button("Split", key="Split Recording", size=(20, 1)),
+                fsg.Button("Add Chapter", key="Add Chapter", size=(20, 1)),
             ],
         ]
 
@@ -78,6 +83,8 @@ class SimpleRecorderWindow(fsg.Window):
         self["-FILENAME-"].bind("<Return>", " || RETURN")
         self["Start Recording"].bind("<Return>", " || RETURN")
         self["Stop Recording"].bind("<Return>", " || RETURN")
+        self["Pause Recording"].bind("<Return>", " || RETURN")
+        self["Resume Recording"].bind("<Return>", " || RETURN")
 
         self["-FILENAME-"].bind("<KeyPress>", " || KEYPRESS")
         self["-FILENAME-"].update(select=True)
@@ -124,6 +131,32 @@ class SimpleRecorderWindow(fsg.Window):
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
+                case ["Pause Recording"] | ["Pause Recording", "RETURN"]:
+                    try:
+                        await Pause(
+                            host=self.host, port=self.port, password=self.password
+                        ).run()
+                        self["-OUTPUT-"].update(
+                            "Recording paused successfully", text_color="green"
+                        )
+                    except SimpleRecorderError as e:
+                        self["-OUTPUT-"].update(
+                            f"Error: {e.raw_message}", text_color="red"
+                        )
+
+                case ["Resume Recording"] | ["Resume Recording", "RETURN"]:
+                    try:
+                        await Resume(
+                            host=self.host, port=self.port, password=self.password
+                        ).run()
+                        self["-OUTPUT-"].update(
+                            "Recording resumed successfully", text_color="green"
+                        )
+                    except SimpleRecorderError as e:
+                        self["-OUTPUT-"].update(
+                            f"Error: {e.raw_message}", text_color="red"
+                        )
+
                 case ["Add Chapter", "FOCUS" | "LEAVE" as focus_event]:
                     if focus_event == "FOCUS":
                         self["-OUTPUT-"].update(
@@ -139,7 +172,7 @@ class SimpleRecorderWindow(fsg.Window):
                         default_text="unnamed",
                     )
 
-                case ["Pause Recording" | "Split Recording" | "Add Chapter"]:
+                case ["Split Recording" | "Add Chapter"]:
                     self["-OUTPUT-"].update(
                         "This feature is not implemented yet", text_color="orange"
                     )
