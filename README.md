@@ -74,20 +74,21 @@ simple-recorder --theme="Light Purple"
 ```shell
 Usage: simple-recorder [OPTIONS] COMMAND
 
-┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ start   Start recording                                                             ┃
-┃ stop    Stop recording                                                              ┃
-┃ pause   Pause recording                                                             ┃
-┃ resume  Resume recording                                                            ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Subcommands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ start      Start recording                                                        ┃
+┃ stop       Stop recording                                                         ┃
+┃ pause      Pause recording                                                        ┃
+┃ resume     Resume recording                                                       ┃
+┃ directory  Get or set the recording directory                                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ --host <HOST>          OBS WebSocket host                                           ┃
-┃ --port <PORT>          OBS WebSocket port                                           ┃
-┃ --password <PASSWORD>  OBS WebSocket password                                       ┃
-┃ --theme <THEME>        GUI theme (Light Purple, Neutral Blue, Reds, Sandy Beach,    ┃
-┃                        Kayak, Light Blue 2)                                         ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+┏━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ --host <HOST>          OBS WebSocket host                                         ┃
+┃ --port <PORT>          OBS WebSocket port                                         ┃
+┃ --password <PASSWORD>  OBS WebSocket password                                     ┃
+┃ --theme <THEME>        GUI theme (Light Purple, Neutral Blue, Reds, Sandy Beach,  ┃
+┃                        Kayak, Light Blue 2)                                       ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
 To launch the CLI pass any subcommand (start/stop etc...), for example:
