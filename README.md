@@ -49,27 +49,17 @@ OBS_THEME=Reds
 
 ## Use
 
-### GUI
-
-To launch the GUI run the root command without any subcommands:
-
-```console
-simple-recorder
-```
-
-![simple-recorder](./img/simple-recorder.png)
-
-Just enter the filename and click *Start*.
-
-#### Themes
-
-You can change the colour theme with the --theme option:
-
-```console
-simple-recorder --theme="Light Purple"
-```
-
 ### CLI
+
+To launch the CLI pass any subcommand, for example:
+
+```console
+simple-recorder start "File Name"
+
+simple-recorder stop
+```
+
+#### Commands:
 
 ```shell
 Usage: simple-recorder [OPTIONS] COMMAND
@@ -91,15 +81,24 @@ Usage: simple-recorder [OPTIONS] COMMAND
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
-To launch the CLI pass any subcommand (start/stop etc...), for example:
+### GUI
+
+To launch the GUI run the root command without any subcommands:
 
 ```console
-simple-recorder start "File Name"
-
-simple-recorder stop
+simple-recorder
 ```
 
--   If no filename is passed to start then you will be prompted for one. 
-    -   A default_name will be used if none is supplied to the prompt.
+![simple-recorder](./img/simple-recorder.png)
+
+Just enter the filename and click *Start*.
+
+#### Themes
+
+You can change the colour theme with the --theme option:
+
+```console
+simple-recorder --theme="Light Purple"
+```
 
 [obs-studio]: https://obsproject.com/
