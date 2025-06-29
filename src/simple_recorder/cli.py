@@ -3,6 +3,7 @@ import logging
 from clypi import ClypiConfig, ClypiException, Command, arg, configure
 from typing_extensions import override
 
+from .directory import Directory
 from .errors import SimpleRecorderError
 from .gui import SimpleRecorderWindow
 from .pause import Pause
@@ -37,7 +38,7 @@ def theme_parser(value: str) -> str:
 
 
 class SimpleRecorder(Command):
-    subcommand: Start | Stop | Pause | Resume | None = None
+    subcommand: Start | Stop | Pause | Resume | Directory | None = None
     host: str = arg(default="localhost", env="OBS_HOST", help="OBS WebSocket host")
     port: int = arg(default=4455, env="OBS_PORT", help="OBS WebSocket port")
     password: str | None = arg(

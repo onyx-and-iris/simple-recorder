@@ -3,6 +3,7 @@ import logging
 import FreeSimpleGUI as fsg
 import obsws_python as obsws
 
+from .directory import Directory
 from .errors import SimpleRecorderError
 from .pause import Pause
 from .resume import Resume
@@ -26,6 +27,8 @@ class SimpleRecorderWindow(fsg.Window):
             ) as client:
                 resp = client.get_version()
                 status_message = f"Connected to OBS {resp.obs_version} ✓"
+                resp = client.get_record_directory()
+                current_directory = resp.record_directory
         except (ConnectionRefusedError, TimeoutError):
             status_message = "Failed to connect to OBS. Is it running?"
 
@@ -59,7 +62,7 @@ class SimpleRecorderWindow(fsg.Window):
                 [
                     fsg.Text(
                         f"Status: {status_message}",
-                        key="-OUTPUT-",
+                        key="-OUTPUT-RECORDER-",
                         text_color="white"
                         if status_message.startswith("Connected")
                         else "red",
@@ -70,7 +73,12 @@ class SimpleRecorderWindow(fsg.Window):
 
         settings_layout = [
             [fsg.Text("Enter the filepath for the recording:")],
-            [fsg.InputText("", key="-FILEPATH-", size=(45, 1))],
+            [fsg.InputText(current_directory, key="-FILEPATH-", size=(45, 1))],
+            [
+                fsg.Button("Get Current", key="-GET-CURRENT-", size=(10, 1)),
+                fsg.Button("Update", key="-UPDATE-", size=(10, 1)),
+            ],
+            [fsg.Text("", key="-OUTPUT-SETTINGS-", text_color="white")],
         ]
 
         settings_tab = fsg.Tab("Settings", settings_layout)
@@ -110,11 +118,11 @@ class SimpleRecorderWindow(fsg.Window):
                             port=self.port,
                             password=self.password,
                         ).run()
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             "Recording started successfully", text_color="green"
                         )
                     except SimpleRecorderError as e:
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
@@ -123,11 +131,11 @@ class SimpleRecorderWindow(fsg.Window):
                         await Stop(
                             host=self.host, port=self.port, password=self.password
                         ).run()
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             "Recording stopped successfully", text_color="green"
                         )
                     except SimpleRecorderError as e:
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
@@ -136,11 +144,11 @@ class SimpleRecorderWindow(fsg.Window):
                         await Pause(
                             host=self.host, port=self.port, password=self.password
                         ).run()
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             "Recording paused successfully", text_color="green"
                         )
                     except SimpleRecorderError as e:
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
@@ -149,21 +157,21 @@ class SimpleRecorderWindow(fsg.Window):
                         await Resume(
                             host=self.host, port=self.port, password=self.password
                         ).run()
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             "Recording resumed successfully", text_color="green"
                         )
                     except SimpleRecorderError as e:
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
                 case ["Add Chapter", "FOCUS" | "LEAVE" as focus_event]:
                     if focus_event == "FOCUS":
-                        self["-OUTPUT-"].update(
+                        self["-OUTPUT-RECORDER-"].update(
                             "Right-click to set a chapter name", text_color="white"
                         )
                     else:
-                        self["-OUTPUT-"].update("", text_color="white")
+                        self["-OUTPUT-RECORDER-"].update("", text_color="white")
 
                 case ["Add Chapter", "RIGHT_CLICK"]:
                     _ = fsg.popup_get_text(
@@ -173,9 +181,43 @@ class SimpleRecorderWindow(fsg.Window):
                     )
 
                 case ["Split Recording" | "Add Chapter"]:
-                    self["-OUTPUT-"].update(
+                    self["-OUTPUT-RECORDER-"].update(
                         "This feature is not implemented yet", text_color="orange"
                     )
+
+                case ["-GET-CURRENT-"]:
+                    try:
+                        current_directory = await Directory(
+                            host=self.host, port=self.port, password=self.password
+                        ).run()
+                        self["-FILEPATH-"].update(current_directory)
+                    except SimpleRecorderError as e:
+                        self["-OUTPUT-SETTINGS-"].update(
+                            f"Error: {e.raw_message}", text_color="red"
+                        )
+
+                case ["-UPDATE-"]:
+                    filepath = values["-FILEPATH-"]
+                    if not filepath:
+                        self["-OUTPUT-SETTINGS-"].update(
+                            "Filepath cannot be empty", text_color="red"
+                        )
+                    else:
+                        try:
+                            await Directory(
+                                directory=filepath,
+                                host=self.host,
+                                port=self.port,
+                                password=self.password,
+                            ).run()
+                            self["-OUTPUT-SETTINGS-"].update(
+                                "Recording directory updated successfully.",
+                                text_color="green",
+                            )
+                        except SimpleRecorderError as e:
+                            self["-OUTPUT-SETTINGS-"].update(
+                                f"Error: {e.raw_message}", text_color="red"
+                            )
 
                 case _:
                     self.logger.debug(f"Unhandled event: {e}")
