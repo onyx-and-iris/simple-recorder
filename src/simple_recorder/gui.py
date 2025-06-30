@@ -103,6 +103,9 @@ class SimpleRecorderWindow(fsg.Window):
         self["Add Chapter"].bind("<Leave>", " || LEAVE")
         self["Add Chapter"].bind("<Button-3>", " || RIGHT_CLICK")
 
+        self["-GET-CURRENT-"].bind("<Return>", " || RETURN")
+        self["-UPDATE-"].bind("<Return>", " || RETURN")
+
     async def run(self):
         while True:
             event, values = self.read()
@@ -186,7 +189,7 @@ class SimpleRecorderWindow(fsg.Window):
                         "This feature is not implemented yet", text_color="orange"
                     )
 
-                case ["-GET-CURRENT-"]:
+                case ["-GET-CURRENT-"] | ["-GET-CURRENT-", "RETURN"]:
                     try:
                         current_directory = await Directory(
                             host=self.host, port=self.port, password=self.password
@@ -197,7 +200,7 @@ class SimpleRecorderWindow(fsg.Window):
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
-                case ["-UPDATE-"]:
+                case ["-UPDATE-"] | ["-UPDATE-", "RETURN"]:
                     filepath = values["-FILEPATH-"]
                     if not filepath:
                         self["-OUTPUT-SETTINGS-"].update(
