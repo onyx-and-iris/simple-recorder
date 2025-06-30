@@ -31,6 +31,7 @@ class SimpleRecorderWindow(fsg.Window):
                 current_directory = resp.record_directory
         except (ConnectionRefusedError, TimeoutError):
             status_message = "Failed to connect to OBS. Is it running?"
+            current_directory = ""
 
         recorder_layout = [
             [fsg.Text("Enter recording filename:", key="-PROMPT-")],

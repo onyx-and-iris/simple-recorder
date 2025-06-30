@@ -21,7 +21,7 @@ class Directory(Command):
     async def run(self):
         try:
             with obsws.ReqClient(
-                host=self.host, port=self.port, password=self.password
+                host=self.host, port=self.port, password=self.password, timeout=3
             ) as client:
                 if self.directory:
                     client.set_record_directory(self.directory)
