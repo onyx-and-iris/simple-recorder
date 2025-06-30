@@ -15,6 +15,9 @@ license = { text = "MIT" }
 [project.scripts]
 simple-recorder = "simple_recorder:run"
 
+[project.gui-scripts]
+simple-recorder-gui = "simple_recorder:run"
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
@@ -28,6 +31,4 @@ compile = "shiv -c simple-recorder -o bin/simple-recorder.pyz ."
 
 
 [dependency-groups]
-build = [
-    "shiv>=1.0.8",
-]
+build = ["shiv>=1.0.8"]

@@ -28,7 +28,18 @@ pipx install simple-recorder
 
 *with pyz*
 
-An executable pyz has been included in [Releases](https://github.com/onyx-and-iris/simple-recorder/releases) which you can run in Windows. Follow the steps in this [Setting up Windows for Zipapps](https://jhermann.github.io/blog/python/deployment/2020/02/29/python_zippapps_on_windows.html#Setting-Up-Windows-10-for-Zipapps) guide.
+-   Download the pyz file in [Releases](https://github.com/onyx-and-iris/simple-recorder/releases)
+-   Optional step: for automatic discovery of the pyz file follow this guide on [Setting Up Windows for Zippapps](https://jhermann.github.io/blog/python/deployment/2020/02/29/python_zippapps_on_windows.html#Setting-Up-Windows-10-for-Zipapps)
+
+Finally run the pyz with python (CLI)/pythonw (GUI):
+
+```console
+python simple-recorder.pyz <subcommand>
+
+pythonw simple-recorder.pyz
+```
+
+note, the pyz extension won't be required if you followed the optional step and made it discoverable.
 
 ## Configuration
 
@@ -51,7 +62,7 @@ OBS_THEME=Reds
 
 ### CLI
 
-To launch the CLI pass any subcommand, for example:
+To launch the CLI:
 
 ```console
 simple-recorder start "File Name"
@@ -83,10 +94,10 @@ Usage: simple-recorder [OPTIONS] COMMAND
 
 ### GUI
 
-To launch the GUI run the root command without any subcommands:
+To launch the GUI:
 
 ```console
-simple-recorder
+simple-recorder-gui
 ```
 
 ![simple-recorder](./img/simple-recorder.png)
