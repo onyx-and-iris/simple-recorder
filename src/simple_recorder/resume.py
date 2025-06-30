@@ -26,5 +26,5 @@ class Resume(Command):
 
                 client.resume_record()
                 print("Recording resumed successfully.")
-        except TimeoutError:
+        except (ConnectionRefusedError, TimeoutError):
             raise SimpleRecorderError("Failed to connect to OBS. Is it running?")

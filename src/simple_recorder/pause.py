@@ -26,5 +26,5 @@ class Pause(Command):
 
                 client.pause_record()
                 print("Recording paused successfully.")
-        except TimeoutError:
+        except (ConnectionRefusedError, TimeoutError):
             raise SimpleRecorderError("Failed to connect to OBS. Is it running?")

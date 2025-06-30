@@ -45,5 +45,5 @@ class Start(Command):
                 )
                 client.start_record()
                 print(f"Recording started with filename: {highlight(filename)}")
-        except TimeoutError:
+        except (ConnectionRefusedError, TimeoutError):
             raise SimpleRecorderError("Failed to connect to OBS. Is it running?")

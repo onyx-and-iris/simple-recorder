@@ -32,5 +32,5 @@ class Directory(Command):
                         f"Current recording directory: {highlight(resp.record_directory)}"
                     )
                     return resp.record_directory
-        except TimeoutError:
+        except (ConnectionRefusedError, TimeoutError):
             raise SimpleRecorderError("Failed to connect to OBS. Is it running?")

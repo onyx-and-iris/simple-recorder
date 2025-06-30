@@ -25,5 +25,5 @@ class Stop(Command):
 
                 client.stop_record()
                 print(highlight("Recording stopped successfully."))
-        except TimeoutError:
+        except (ConnectionRefusedError, TimeoutError):
             raise SimpleRecorderError("Failed to connect to OBS. Is it running?")
