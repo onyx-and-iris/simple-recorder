@@ -109,7 +109,7 @@ Just enter the filename and click *Start*.
 You can change the colour theme with the --theme option:
 
 ```console
-simple-recorder --theme="Light Purple"
+simple-recorder-gui --theme="Light Purple"
 ```
 
 [obs-studio]: https://obsproject.com/
