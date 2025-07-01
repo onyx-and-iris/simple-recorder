@@ -7,6 +7,7 @@ from .directory import Directory
 from .errors import SimpleRecorderError
 from .pause import Pause
 from .resume import Resume
+from .split import Split
 from .start import Start
 from .stop import Stop
 
@@ -94,6 +95,7 @@ class SimpleRecorderWindow(fsg.Window):
         self["Stop Recording"].bind("<Return>", " || RETURN")
         self["Pause Recording"].bind("<Return>", " || RETURN")
         self["Resume Recording"].bind("<Return>", " || RETURN")
+        self["Split Recording"].bind("<Return>", " || RETURN")
 
         self["-FILENAME-"].bind("<KeyPress>", " || KEYPRESS")
         self["-FILENAME-"].update(select=True)
@@ -177,6 +179,19 @@ class SimpleRecorderWindow(fsg.Window):
                     else:
                         self["-OUTPUT-RECORDER-"].update("", text_color="white")
 
+                case ["Split Recording"] | ["Split Recording", "RETURN"]:
+                    try:
+                        await Split(
+                            host=self.host, port=self.port, password=self.password
+                        ).run()
+                        self["-OUTPUT-RECORDER-"].update(
+                            "Recording split successfully", text_color="green"
+                        )
+                    except SimpleRecorderError as e:
+                        self["-OUTPUT-RECORDER-"].update(
+                            f"Error: {e.raw_message}", text_color="red"
+                        )
+
                 case ["Add Chapter", "RIGHT_CLICK"]:
                     _ = fsg.popup_get_text(
                         "Enter chapter name:",
@@ -184,7 +199,7 @@ class SimpleRecorderWindow(fsg.Window):
                         default_text="unnamed",
                     )
 
-                case ["Split Recording" | "Add Chapter"]:
+                case ["Add Chapter"]:
                     self["-OUTPUT-RECORDER-"].update(
                         "This feature is not implemented yet", text_color="orange"
                     )

@@ -8,6 +8,7 @@ from .errors import SimpleRecorderError
 from .gui import SimpleRecorderWindow
 from .pause import Pause
 from .resume import Resume
+from .split import Split
 from .start import Start
 from .stop import Stop
 
@@ -37,8 +38,11 @@ def theme_parser(value: str) -> str:
     return value
 
 
+SUBCOMMANDS = Start | Stop | Pause | Resume | Split | Directory
+
+
 class SimpleRecorder(Command):
-    subcommand: Start | Stop | Pause | Resume | Directory | None = None
+    subcommand: SUBCOMMANDS | None = None
     host: str = arg(default="localhost", env="OBS_HOST", help="OBS WebSocket host")
     port: int = arg(default=4455, env="OBS_PORT", help="OBS WebSocket port")
     password: str | None = arg(
@@ -52,7 +56,6 @@ class SimpleRecorder(Command):
     )
     debug: bool = arg(
         default=False,
-        env="DEBUG",
         help="Enable debug logging",
         hidden=True,
     )
