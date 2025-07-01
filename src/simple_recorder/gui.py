@@ -3,6 +3,7 @@ import logging
 import FreeSimpleGUI as fsg
 import obsws_python as obsws
 
+from .chapter import Chapter
 from .directory import Directory
 from .errors import SimpleRecorderError
 from .pause import Pause
@@ -96,8 +97,9 @@ class SimpleRecorderWindow(fsg.Window):
         self["Pause Recording"].bind("<Return>", " || RETURN")
         self["Resume Recording"].bind("<Return>", " || RETURN")
         self["Split Recording"].bind("<Return>", " || RETURN")
+        self["Add Chapter"].bind("<Return>", " || RETURN")
+        self["Add Chapter"].bind("<Shift-Return>", " || SHIFT-RETURN")
 
-        self["-FILENAME-"].bind("<KeyPress>", " || KEYPRESS")
         self["-FILENAME-"].update(select=True)
         self["Add Chapter"].bind("<FocusIn>", " || FOCUS")
         self["Add Chapter"].bind("<Enter>", " || FOCUS")
@@ -109,6 +111,8 @@ class SimpleRecorderWindow(fsg.Window):
         self["-UPDATE-"].bind("<Return>", " || RETURN")
 
     async def run(self):
+        chapter_name = "unnamed"
+
         while True:
             event, values = self.read()
             self.logger.debug(f"Event: {event}, Values: {values}")
@@ -192,17 +196,32 @@ class SimpleRecorderWindow(fsg.Window):
                             f"Error: {e.raw_message}", text_color="red"
                         )
 
-                case ["Add Chapter", "RIGHT_CLICK"]:
-                    _ = fsg.popup_get_text(
+                case ["Add Chapter", "RIGHT_CLICK" | "SHIFT-RETURN"]:
+                    chapter_name = fsg.popup_get_text(
                         "Enter chapter name:",
                         "Add Chapter",
                         default_text="unnamed",
                     )
 
-                case ["Add Chapter"]:
-                    self["-OUTPUT-RECORDER-"].update(
-                        "This feature is not implemented yet", text_color="orange"
-                    )
+                case ["Add Chapter"] | ["Add Chapter", "RETURN"]:
+                    try:
+                        await Chapter(
+                            chapter_name=chapter_name,
+                            host=self.host,
+                            port=self.port,
+                            password=self.password,
+                        ).run()
+                        self["-OUTPUT-RECORDER-"].update(
+                            f"Chapter {chapter_name if chapter_name else 'unnamed'} added successfully",
+                            text_color="green",
+                        )
+                    except SimpleRecorderError:
+                        fsg.popup_error(
+                            "Unable to create chapter, please check your OBS settings.\n"
+                            "Note, currently only Hybrid MP4 is supported for chapters.",
+                            title="Chapter Error",
+                            keep_on_top=True,
+                        )
 
                 case ["-GET-CURRENT-"] | ["-GET-CURRENT-", "RETURN"]:
                     try:

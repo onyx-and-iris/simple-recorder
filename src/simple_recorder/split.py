@@ -1,12 +1,8 @@
-import logging
-
 import obsws_python as obsws
 from clypi import Command, arg
 from typing_extensions import override
 
 from .errors import SimpleRecorderError
-
-logging.basicConfig(level=logging.disable())
 
 
 class Split(Command):

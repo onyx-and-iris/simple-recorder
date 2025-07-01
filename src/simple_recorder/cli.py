@@ -3,6 +3,7 @@ import logging
 from clypi import ClypiConfig, ClypiException, Command, arg, configure
 from typing_extensions import override
 
+from .chapter import Chapter
 from .directory import Directory
 from .errors import SimpleRecorderError
 from .gui import SimpleRecorderWindow
@@ -11,8 +12,6 @@ from .resume import Resume
 from .split import Split
 from .start import Start
 from .stop import Stop
-
-logger = logging.getLogger(__name__)
 
 config = ClypiConfig(
     nice_errors=(SimpleRecorderError,),
@@ -38,7 +37,7 @@ def theme_parser(value: str) -> str:
     return value
 
 
-SUBCOMMANDS = Start | Stop | Pause | Resume | Split | Directory
+SUBCOMMANDS = Start | Stop | Pause | Resume | Split | Chapter | Directory
 
 
 class SimpleRecorder(Command):
@@ -61,11 +60,15 @@ class SimpleRecorder(Command):
     )
 
     @override
-    async def run(self):
-        """Run the Simple Recorder GUI."""
+    async def pre_run_hook(self):
         if self.debug:
             logging.basicConfig(level=logging.DEBUG)
+        else:
+            logging.basicConfig(level=logging.disable())
 
+    @override
+    async def run(self):
+        """Run the Simple Recorder GUI."""
         window = SimpleRecorderWindow(self.host, self.port, self.password, self.theme)
         await window.run()
 
